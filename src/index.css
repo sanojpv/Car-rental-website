@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Cal+Sans&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Playwrite+HU:wght@100..400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+@import "tailwindcss";
+*{
+   font-family: "Outfit", sans-serif;
+}
+
+ @keyframes borderRun {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.border-animation {
+  border: 1px solid transparent;
+  border-radius: 0.78rem;
+  background: linear-gradient(120deg, #22c54b, #2f25eb, #ec48bb, #2fd36b);
+  background-size: 200% 200%;
+  animation: borderRun 3s linear infinite;
+  padding: 4px; /* Border width */
+}
+
+.border-animation img {
+  display: block;
+  border-radius: 0.5rem;
+}
+
