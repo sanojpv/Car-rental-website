@@ -1,14 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Navbar from './Components/Navbar'
-import Home from './pages/Home'
+
 import Mainrouter from './Components/Mainrouter'
 
 const App = () => {
-  
+ 
   return (
     <div>
-      <Navbar/>
-      <Mainrouter/>
+   
+        <Navbar/>
+        <Mainrouter/>
+      
     
     </div>
   )
