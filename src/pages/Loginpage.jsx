@@ -3,12 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux';
 import { isLogin } from '../redux/Loginslice';
 const Loginpage = () => {
-  // const [logedin, setLogedin] = useState(false);
   const [userName, setUsername] = useState('');
   const [userpassword, setUserPassword] = useState('');
   const [showError, setShowError] = useState(false);
   const navigate = useNavigate();
-//  const log=useSelector((state)=>state.login.value);
  const dispatch =useDispatch()
   let user = {
     username: 'user',
@@ -31,7 +29,7 @@ const Loginpage = () => {
   return (
     <div className="fixed inset-0 bg-opacity-50 backdrop-blur-xs flex items-center justify-center z-50">
       {/*  Error Popup */}
-      {showError && (
+      {showError &&(
         <div className="fixed top-5 right-5 bg-white border border-red-400 text-red-700 px-4 py-3 rounded shadow-lg z-50">
           <div className="flex justify-between items-center gap-2">
             <p>Invalid username or password</p>

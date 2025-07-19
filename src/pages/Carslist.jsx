@@ -38,7 +38,7 @@ const Carslist = () => {
                 </p>
                 <p className="text-gray-400 text-xl">/day</p>
               </div>
-              <button className="bg-green-800 text-white px-4 py-2 rounded hover:bg-green-700 w-full" onClick={()=>navigate(`/${car.id}`)}>
+              <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full" onClick={()=>navigate(`/${car.id}`)}>
                
                Rent Now
             
