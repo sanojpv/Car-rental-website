@@ -80,12 +80,7 @@ const Booking = () => {
         <div className="fixed top-1/2 right-1/2 transform-translate-x-1/2 transform-translate-y-1/2 bg-white text-black px-10 py-8 rounded shadow-lg z-50 w[90%]  max-w-md text-center">
           <div className="flex justify-between items-center gap-6 text-2xl">
             <p className="ml-2">Booking Confirm🎉</p>
-            {/* <button
-              onClick={() => setConfirmBooking(false)}
-              className="text-red-500 font-bold text-lg"
-            >
-              ✖
-            </button> */}
+           
           </div>
           <div className="flex justify-center gap-5 text-white mt-3">
             <button

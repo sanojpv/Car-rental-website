@@ -2,25 +2,31 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux';
 import { isLogin } from '../redux/Loginslice';
+import { userData } from '../data/UsersData';
 const Loginpage = () => {
   const [userName, setUsername] = useState('');
   const [userpassword, setUserPassword] = useState('');
   const [showError, setShowError] = useState(false);
   const navigate = useNavigate();
  const dispatch =useDispatch()
-  let user = {
-    username: 'user',
-    password: 'user123',
-  };
+
 
   
   const handleLogin = () => {
-    if (user.username === userName && user.password === userpassword) {
-      localStorage.setItem('user', JSON.stringify(user));
+      const founduser= userData.find((finduser)=>
+      finduser.username === userName && finduser.password === userpassword
      
+    
+    )
+     
+    
+    if (founduser) {
       dispatch(isLogin(true))
+      localStorage.setItem('user', JSON.stringify(founduser));
+     
       navigate('/');
-    } else {
+   }
+     else {
       setShowError(true);
       setTimeout(() => setShowError(false), 3000);
     }

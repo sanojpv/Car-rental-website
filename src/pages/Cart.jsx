@@ -17,12 +17,12 @@ const Cart = () => {
     <div
       className={theme === "light" ? " bg-white" : "bg-black border-2 h-screen"}
     >
-      <div className="md:grid grid-cols-2   min-h-screen w-full">
+      <div className="md:grid grid-cols-2  min-h-screen w-full border">
         {carts.length === 0 ? (
           <p
             className={
               theme === "light"
-                ? "text-2xl text-violet-500 absolute top-50 animate-bounce mt-5"
+                ? "text-2xl text-violet-500  absolute top-50 animate-bounce mt-5 border"
                 : "text-2xl text-violet-500 absolute top-50 animate-bounce mt-5"
             }
           >
@@ -39,7 +39,7 @@ const Cart = () => {
                   <img
                     src={item.images}
                     alt=""
-                    className="rounded-2xl md:max-w-sm mx-auto p-3"
+                    className="rounded-2xl md:max-w-md mx-auto p-3 object-scale-down"
                   />
                 </div>
                 <div className="bg-gray-400 rounded-b-xl  pb-4 md:rounded-r-2xl md:rounded-b-none md:rounded-br-xl">
