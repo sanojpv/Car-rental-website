@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
+import {Instagram,Linkedin,Facebook, Twitter,MapPinned} from 'lucide-react'
 
 const Footer = () => {
     const theme=useSelector(state=>state.theme.value)
@@ -29,7 +29,7 @@ const Footer = () => {
         <div>
           <h2 className="text-lg font-semibold text-violet-700 mb-4">Contact</h2>
           <ul className="space-y-2 text-sm">
-            <li>📍 Kochi, Kerala, India</li>
+            <li className="flex"><MapPinned className="text-red-400"/> Kochi, Kerala, India</li>
             <li>📞 +91 3214 43210</li>
             <li>✉️ support@europedrive.com</li>
           </ul>
@@ -39,10 +39,10 @@ const Footer = () => {
         <div>
           <h2 className="text-lg font-semibold text-violet-700 mb-4">Follow Us</h2>
           <div className="flex space-x-4 text-xl">
-            <a href="#" className="hover:text-blue-500">🌐</a>
-            <a href="#" className="hover:text-blue-400">🔗</a>
-            <a href="#" className="hover:text-pink-500">📸</a>
-            <a href="#" className="hover:text-blue-700">📘</a>
+            <a href="#" className="hover:text-pink-600"><Instagram /></a>
+            <a href="#" className="hover:text-blue-700"><Linkedin /></a>
+            <a href="#" className="hover:text-blue-500"><Facebook /></a>
+            <a href="#" className="hover:text-blue-700"><Twitter /></a>
           </div>
         </div>
       </div>

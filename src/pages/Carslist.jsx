@@ -2,38 +2,50 @@ import React, { useState, useEffect } from "react";
 import { cars } from "../data/Carsdata";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Sort from "./Sort";
+
 
 const Carslist = () => {
   const [carsdata, setCarsdata] = useState(cars);
-  const [sorting, setSorting] = useState();
-  const [searchText, setSearchText] = useState("");
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
-
+  const [searchText,setSearchText]=useState("");
+  const [category,setCategory]=useState([]);
+  const [selectedcategory,setSelectedcategory]=useState('All')
+  const [minprice,setMinprice]=useState('');
+  const [maxPrice,setMaxPrice]=useState('');
   const navigate = useNavigate();
   const theme = useSelector((state) => state.theme.value);
 
   useEffect(() => {
-    let filtered = [...cars];
+    let filteredItem = [...cars];
 
-    // 🔍 Filter by brand/model name
-    if (searchText.trim() !== "") {  
-      filtered = filtered.filter((car) =>
-        (car.brand + " " + car.model).toLowerCase().includes(searchText.toLowerCase())
-      );
-    }
+    //  Filter by brand/model name
+   if(searchText.trim() !=""){
+    filteredItem=filteredItem.filter((car)=>(
+      car.brand +""+ car.model
+    ).toLowerCase().includes(searchText.toLowerCase()))
+   }
+    let getcategory=['All',...new Set(cars.map((car)=>car.category))]
+    
+   setCategory(getcategory)
+ 
+ 
 
-    // 💸 Filter by custom price range
-    if (minPrice !== "") {
-      filtered = filtered.filter((car) => car.price >= parseInt(minPrice));
-    }
-    if (maxPrice !== "") {
-      filtered = filtered.filter((car) => car.price <= parseInt(maxPrice));
-    }
+if(selectedcategory === 'All'){
+  filteredItem
 
-    setCarsdata(filtered);
-  }, [searchText, minPrice, maxPrice]);
+}else {
+  filteredItem=filteredItem.filter(car=>car.category == selectedcategory)
+}
+ if(minprice !==""){
+  filteredItem=filteredItem.filter((car)=>car.price >= parseInt(minprice))
+ }
+  if(maxPrice !==""){
+
+    filteredItem=filteredItem.filter((car)=>car.price <= parseInt(maxPrice))
+  }
+
+    setCarsdata(filteredItem);
+  }, [searchText,selectedcategory,minprice,maxPrice]);
+
 
   return (
     <div>
@@ -46,39 +58,37 @@ const Carslist = () => {
       >
         <h3 className="text-3xl font-bold text-center mb-10">Available Cars</h3>
 
-        {/* 🔍 Filters and Sorting */}
+        {/*  Filters and Sorting */}
         <div className="flex flex-col lg:flex-row gap-4 mb-6 justify-between items-center">
           <input
             type="text"
             placeholder="Search by brand or model"
-            className="px-4 py-2 rounded border w-full lg:w-1/3 text-black"
+            className={theme==="light"?"px-4 py-2 rounded border-2 w-full lg:w-1/3 text-blue-600  outline-0 border-blue-400": "px-4 py-2 rounded border-2 w-full lg:w-1/3 text-white  outline-0 border-blue-500"}
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
           />
+          <div className=" border-blue-500 px-4 py-2 rounded border-2 w-full lg:w-1/4">
+       
+          <select onChange={(e)=>setSelectedcategory(e.target.value)} className="outline-0 px-5 w-full">
+          
+          {
+          
+              category.map((cat,index)=>(
+                <option key={index} value={cat} className="px-4 bg-gray-500">{cat}</option>
+              ))
+            }
+          </select>
 
-          <div className="flex gap-2 w-full lg:w-1/3">
-            <input
-              type="number"
-              placeholder="Min Price"
-              className="px-4 py-2 rounded border w-1/2 text-black"
-              value={minPrice}
-              onChange={(e) => setMinPrice(e.target.value)}
-            />
-            <input
-              type="number"
-              placeholder="Max Price"
-              className="px-4 py-2 rounded border w-1/2 text-black"
-              value={maxPrice}
-              onChange={(e) => setMaxPrice(e.target.value)}
-            />
           </div>
+   <div className="flex gap-2 w-full  lg:w-1/3">
+    <input type="number"  placeholder="Minprice" value={minprice} onChange={(e)=>setMinprice(e.target.value)}className="px-4 py-2 rounded border-2 w-1/2 border-blue-500 text-blue-500 focus:outline-amber-600"/>
+    <input type="number"  placeholder="maxPrice" value={maxPrice} onChange={(e)=>setMaxPrice(e.target.value)}className="px-4 py-2 rounded border-2 w-1/2 border-blue-500 text-blue-500 focus:outline-amber-600"/>
+    
 
-          <div className="w-full lg:w-1/3">
-            <Sort sorting={setSorting} />
-          </div>
+   </div>
         </div>
 
-        {/* 🚘 Car Grid */}
+        {/* Car Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {carsdata.length === 0 ? (
             <p className="col-span-3 text-center text-xl text-red-500">

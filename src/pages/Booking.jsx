@@ -7,7 +7,7 @@ import {
   Gauge,
   Fuel,
   ReceiptIndianRupee,
-  Car,
+  Car,Heart
 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { addtocart } from "../redux/Cartslice";
@@ -18,6 +18,7 @@ const Booking = () => {
   const [days, setDays] = useState(0);
   const [grandtotal, setGrandTotal] = useState(0);
   const [confirmBooking, setConfirmBooking] = useState(false);
+  const [whislists,setWhishlist]=useState(false)
   const { id } = useParams();
   useEffect(() => {
     const slcar = selectcar.find((ncar) => ncar.id == id);
@@ -55,19 +56,22 @@ const Booking = () => {
   const canceling = () => {
     alert("Are you sure Cancel Booking");
     setConfirmBooking(false);
+    navigate('/Carlist')
   };
   const handleBooking = () => {
     if (login && pickdate && returndate) {
       console.log("confirm");
       setConfirmBooking(true);
     } else {
-      console.log("please login first and book");
+     alert("please login first and book");
     }
   };
   const handleCart = (cartitem) => {
     dispatch(addtocart(cartitem));
   };
-
+ const whislist= (whis)=>{
+  setWhishlist(whis)
+ }
   return (
     <div
       className={
@@ -99,6 +103,16 @@ const Booking = () => {
         </div>
       )}
       <div className="mt-2 p-2 w-full mb-4 shadow-2xl bg-white md:rounded-2xl md:p-5 md:w-2/3 md:m-5">
+      <div className="w-full flex justify-end relative top-15 right-10 ">
+        {
+          whislists? <p onClick={()=>whislist(false)} className="cursor-pointer bg-red-500 rounded-4xl flex items-center">
+           <Heart size={40} strokeWidth={1.75} className="text-2xl text-white "/>
+          </p>:
+          <p onClick={()=>whislist(true)} className="cursor-pointer">
+            <Heart size={40} strokeWidth={1.75} className="text-white" />
+          </p>
+        }
+</div>
         <img
           src={selectcar.images}
           alt="car image"
