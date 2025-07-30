@@ -3,49 +3,52 @@ import { cars } from "../data/Carsdata";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-
 const Carslist = () => {
   const [carsdata, setCarsdata] = useState(cars);
-  const [searchText,setSearchText]=useState("");
-  const [category,setCategory]=useState([]);
-  const [selectedcategory,setSelectedcategory]=useState('All')
-  const [minprice,setMinprice]=useState('');
-  const [maxPrice,setMaxPrice]=useState('');
+  const [searchText, setSearchText] = useState("");
+  const [category, setCategory] = useState([]);
+  const [selectedcategory, setSelectedcategory] = useState("All");
+  const [minprice, setMinprice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
   const navigate = useNavigate();
   const theme = useSelector((state) => state.theme.value);
 
   useEffect(() => {
     let filteredItem = [...cars];
 
-    //  Filter by brand/model name
-   if(searchText.trim() !=""){
-    filteredItem=filteredItem.filter((car)=>(
-      car.brand +""+ car.model
-    ).toLowerCase().includes(searchText.toLowerCase()))
-   }
-    let getcategory=['All',...new Set(cars.map((car)=>car.category))]
-    
-   setCategory(getcategory)
- 
- 
+    //  Filter by brand/model name 
+    if (searchText.trim() != "") {
+      filteredItem = filteredItem.filter((car) =>
+        (car.brand + "" + car.model)
+          .toLowerCase()
+          .includes(searchText.toLowerCase())
+      );
+    }
+    let getcategory = ["All", ...new Set(cars.map((car) => car.category))];
 
-if(selectedcategory === 'All'){
-  filteredItem
-
-}else {
-  filteredItem=filteredItem.filter(car=>car.category == selectedcategory)
-}
- if(minprice !==""){
-  filteredItem=filteredItem.filter((car)=>car.price >= parseInt(minprice))
- }
-  if(maxPrice !==""){
-
-    filteredItem=filteredItem.filter((car)=>car.price <= parseInt(maxPrice))
-  }
+    setCategory(getcategory);
+ //filter by category
+    if (selectedcategory === "All") {
+      filteredItem;
+    } else {
+      filteredItem = filteredItem.filter(
+        (car) => car.category == selectedcategory
+      );
+    }
+    //filter by min price and max price
+    if (minprice !== "") {
+      filteredItem = filteredItem.filter(
+        (car) => car.price >= parseInt(minprice)
+      );
+    }
+    if (maxPrice !== "") {
+      filteredItem = filteredItem.filter(
+        (car) => car.price <= parseInt(maxPrice)
+      );
+    }
 
     setCarsdata(filteredItem);
-  }, [searchText,selectedcategory,minprice,maxPrice]);
-
+  }, [searchText, selectedcategory, minprice, maxPrice]);
 
   return (
     <div>
@@ -63,29 +66,42 @@ if(selectedcategory === 'All'){
           <input
             type="text"
             placeholder="Search by brand or model"
-            className={theme==="light"?"px-4 py-2 rounded border-2 w-full lg:w-1/3 text-blue-600  outline-0 border-blue-400": "px-4 py-2 rounded border-2 w-full lg:w-1/3 text-white  outline-0 border-blue-500"}
+            className={
+              theme === "light"
+                ? "px-4 py-2 rounded border-2 w-full lg:w-1/3 text-blue-600  outline-0 border-blue-400"
+                : "px-4 py-2 rounded border-2 w-full lg:w-1/3 text-white  outline-0 border-blue-500"
+            }
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
           />
           <div className=" border-blue-500 px-4 py-2 rounded border-2 w-full lg:w-1/4">
-       
-          <select onChange={(e)=>setSelectedcategory(e.target.value)} className="outline-0 px-5 w-full">
-          
-          {
-          
-              category.map((cat,index)=>(
-                <option key={index} value={cat} className="px-4 bg-gray-500">{cat}</option>
-              ))
-            }
-          </select>
-
+            <select
+              onChange={(e) => setSelectedcategory(e.target.value)}
+              className="outline-0 px-5 w-full"
+            >
+              {category.map((cat, index) => (
+                <option key={index} value={cat} className="px-4 bg-gray-500">
+                  {cat}
+                </option>
+              ))}
+            </select>
           </div>
-   <div className="flex gap-2 w-full  lg:w-1/3">
-    <input type="number"  placeholder="Minprice" value={minprice} onChange={(e)=>setMinprice(e.target.value)}className="px-4 py-2 rounded border-2 w-1/2 border-blue-500 text-blue-500 focus:outline-amber-600"/>
-    <input type="number"  placeholder="maxPrice" value={maxPrice} onChange={(e)=>setMaxPrice(e.target.value)}className="px-4 py-2 rounded border-2 w-1/2 border-blue-500 text-blue-500 focus:outline-amber-600"/>
-    
-
-   </div>
+          <div className="flex gap-2 w-full  lg:w-1/3">
+            <input
+              type="number"
+              placeholder="Minprice"
+              value={minprice}
+              onChange={(e) => setMinprice(e.target.value)}
+              className="px-4 py-2 rounded border-2 w-1/2 border-blue-500 text-blue-500 focus:outline-amber-600"
+            />
+            <input
+              type="number"
+              placeholder="maxPrice"
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(e.target.value)}
+              className="px-4 py-2 rounded border-2 w-1/2 border-blue-500 text-blue-500 focus:outline-amber-600"
+            />
+          </div>
         </div>
 
         {/* Car Grid */}
@@ -96,7 +112,10 @@ if(selectedcategory === 'All'){
             </p>
           ) : (
             carsdata.map((car) => (
-              <div key={car.id} className="bg-white p-4 rounded shadow text-black">
+              <div
+                key={car.id}
+                className="bg-white p-4 rounded shadow text-black"
+              >
                 <img
                   src={car.images}
                   alt="Car"
@@ -107,7 +126,9 @@ if(selectedcategory === 'All'){
                 </h4>
                 <p>Fuel Type: {car.fueltype}</p>
                 <div className="flex gap-2 font-mono">
-                  <p className="text-blue-500 mb-4 text-xl font-bold">₹ {car.price}</p>
+                  <p className="text-blue-500 mb-4 text-xl font-bold">
+                    ₹ {car.price}
+                  </p>
                   <p className="text-gray-400 text-xl">/day</p>
                 </div>
                 <button

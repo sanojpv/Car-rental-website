@@ -7,7 +7,7 @@ import {
   Gauge,
   Fuel,
   ReceiptIndianRupee,
-  Car,Heart
+  Car,Heart,PaintBucket 
 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { addtocart } from "../redux/Cartslice";
@@ -122,10 +122,10 @@ const Booking = () => {
           <h2 className="font-bold flex m-2">
             {" "}
             Model:
-            <Car className="text-violet-500" />
+            <Car className="text-blue-500" />
             {selectcar.brand} {selectcar.model}
           </h2>
-          {/* <p>{selectcar.color}</p> */}
+          <p className="flex m-2">Color :<PaintBucket className="text-violet-500"/>{selectcar.color}</p>
           <p className="flex m-2">
             Fuel type:
             <Fuel className="text-green-500" />
