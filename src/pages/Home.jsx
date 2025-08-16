@@ -49,10 +49,10 @@ const Home = () => {
           }
         >
           <img
-            src="https://img.autocarindia.com/mmv_images/colors/20250508070453_BMW_M5_Isle_Of_Man_Green_Metallic[1].png?w=750&h=500&q=90&c=1"
+            src="https://vexstockimages.fastly.carvana.io/stockimages/2021_BMW_M4_COMPETITION%20COUPE%202D_GREEN_stock_desktop_1920x1080.png?v=1754307121.804"
             alt="Car"
             className="rounded-lg"
-            width={600}
+            width={750}
           />
         </div>
       </section>
